@@ -1,15 +1,18 @@
 const fs = require("fs");
-const uuid = require("uuid/v4");
+// const uuid = require("uuid/v4");
+const { v4: uuidv4 } = require('uuid');
 let dbNotes = require('./db.json');
 const express = require("express");
+
+
 const path = require("path");
 const router = require ("express").Router();
 const app = express(); 
 
 app.use(express.urlencoded({extended:true}));
 app.use (express.json()); 
-// app.use(express.static("public"));
-app.use(express.static(__dirname + "WinterReading"));
+app.use(express.static("public"));
+// app.use(express.static(__dirname + "WinterReading"));
 
 // This is the enviroment variable PORT or (default) 3000 if there is nothing there.
 const PORT = process.env.PORT || 3000; 
@@ -18,27 +21,29 @@ const PORT = process.env.PORT || 3000;
 // METHOD is an HTTP request method, in lowercase.
 // PATH is a path on the server.
 
-// three get req.
-// This get req returns the notes.html file 
-app.get("/notes",function(req, res) {
-  res.sendFile(path.join(__dirname, "notes.html"))
+// A get req that deals style.js. This is an api route.
+app.get("/styles.css",function(req, res) {
+  res.sendFile(path.join(__dirname, "styles.css"))
 });
 
-// The get req returns the index.html file
-app.get("*",function(req, res) {
-  res.sendFile(path.join(__dirname, "index.html"))
+// A get req that deals index.js. This is an api route.
+app.get("/index.js",function(req, res) {
+  res.sendFile(path.join(__dirname, "index.js"))
 });
 
-// The get req. is for the saveNotes data 
+// A get req that returns all the saved notes as a JSON. This is an api route.
 app.get("/api/notes",function(req, res) {
-  res.JSON(dbNotes)
+  res.json(dbNotes)
 });
 
-app.post("/api/notes:id",function (req, res) {
-  res.send('POST a note from the user')
-});
+// A post req that is new saved notes. 
+app.post("/api/notes", function(req, res){
+console.log(req.body)  
+res.json(dbNotes)
 
-app.delete("/api/notes/:id",function(req,res){
+}); 
+
+app.delete ("/api/notes/:id",function(req,res){
 fs.readFile('./db.json', 'utf8',(err,data) => {
 if (err)throw err; 
 console.log (data);
@@ -47,11 +52,20 @@ res.send(data);
 
 });
 
+// three get req.
+// A get req that returns the notes.html file. This is an html route. 
+app.get("/notes",function(req, res) {
+  res.sendFile(path.join(__dirname, "notes.html"))
+});
+
+//  A get req that returns the index.html file. This is an html route.
+app.get("*",function(req, res) {
+  res.sendFile(path.join(__dirname, "index.html"))
+});
+
    module.exports = router;
 
 // Start Server
  app.listen(PORT, function() {console.log("App listening on PORT " + PORT);
  });
-
-
-
+ 
