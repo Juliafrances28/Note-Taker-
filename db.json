@@ -1,2 +1,5 @@
-[{"title":"Test Title","text":"Test text"}]
+[{"newTitle":"Favorite Movies",
+  "newText":"Legally Blonde", 
+  "id": 1   
+}]
 
