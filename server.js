@@ -21,16 +21,6 @@ const PORT = process.env.PORT || 3000;
 // METHOD is an HTTP request method, in lowercase.
 // PATH is a path on the server.
 
-// A get req that deals style.js. This is an api route.
-app.get("/styles.css",function(req, res) {
-  res.sendFile(path.join(__dirname, "styles.css"))
-});
-
-// A get req that deals index.js. This is an api route.
-app.get("/index.js",function(req, res) {
-  res.sendFile(path.join(__dirname, "index.js"))
-});
-
 // A get req that returns all the saved notes as a JSON. This is an api route.
 app.get("/api/notes",function(req, res) {
   res.json(dbNotes)
@@ -52,14 +42,14 @@ res.send(data);
 
 });
 
-// three get req.
+
 // A get req that returns the notes.html file. This is an html route. 
 app.get("/notes",function(req, res) {
   res.sendFile(path.join(__dirname, "notes.html"))
 });
 
 //  A get req that returns the index.html file. This is an html route.
-app.get("*",function(req, res) {
+app.get("/",function(req, res) {
   res.sendFile(path.join(__dirname, "index.html"))
 });
 
