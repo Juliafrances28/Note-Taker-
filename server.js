@@ -27,8 +27,15 @@ app.get("/api/notes",function(req, res) {
 });
 
 // A post req that is new saved notes. 
+// send note to client/dbnotes 
+   // create id 
+// save file 
+// send dbnotes to client 
+
 app.post("/api/notes", function(req, res){
-console.log(req.body)  
+  const note = {title: req.body.title, text: req.body.text, id: uuidv4()};
+  console.log (note)
+  
 res.json(dbNotes)
 
 }); 
