@@ -36,8 +36,6 @@ app.post("/api/notes", function (req, res) {
   const note = { title: req.body.title, text: req.body.text, id: uuidv4() };
   console.log(note);
   dbNotes.push(note);
- 
- 
   fs.writeFile("./db.json",  JSON.stringify (dbNotes), "utf8", (err) => {
     if (err) throw err;
     console.log("File was saved");
@@ -45,13 +43,28 @@ app.post("/api/notes", function (req, res) {
   });
 });
 
-app.delete("/api/notes/:id", function (req, res) {
-  fs.readFile("./db.json", "utf8", (err, data) => {
+
+app.delete("/api/notes/:id", function (req, res) { 
+  // req.params.id 
+   let index = -1 
+   for (let i = 0; i < dbNotes.length; i++) {
+    if (dbNotes [i].id == req.params.id) {
+        index = i; 
+    }
+  
+   }
+    
+   dbNotes.splice(index, 1); 
+  
+
+
+  fs.writeFile("./db.json", JSON.stringify (dbNotes), "utf8", (err) => {
     if (err) throw err;
-    console.log(data);
-    res.send(data);
+    console.log("Node was delete");
+    res.json(dbNotes);
   });
 });
+
 
 
 
