@@ -1,15 +1,5 @@
 
   # Note-Taker-
-
-   ## Table of Contents
-     * [Email](#Email)
-     * [Username](#Username)
-     * [Description](#Description)
-     * [Instructions](#Instructions)
-     * [Usage](#Usage)
-     * [Installation](#InstallaTtion)
-     * [Questions](#Questions)
-     * [License](#License)
      
   ## Description
    In this project I created an application called Note Taker that can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
